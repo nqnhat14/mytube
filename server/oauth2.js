@@ -156,6 +156,7 @@ server.exchange(oauth2orize.exchange.password((client, username, password, scope
 // application issues an access token on behalf of the client who authorized the code.
 
 
+
 server.exchange(oauth2orize.exchange.clientCredentials((client, scope, done) => {
     // Validate the client
     Client.findByIdAsync(client._id)
