@@ -132,7 +132,12 @@ server.exchange(oauth2orize.exchange.password((client, username, password, scope
 
                     accessToken.save()
                         .then(() => {
-                            return done(null, token);
+                            const returnValue={
+                                idToken:token,
+                                expiresIn:3600,
+                                localId:user._id
+                            }
+                            return done(null, token,null,returnValue);
                         })
                         .catch(err=>{return done(err)});
                 })
@@ -252,8 +257,14 @@ exports.decision = [
 // exchange middleware will be invoked to handle the request. Clients must
 // authenticate when making requests to this endpoint.
 
+// exports.token = [
+//     passport.authenticate(['clientPassword'], { session: false }),
+//     server.token(),
+//     server.errorHandler(),
+// ];
+
 exports.token = [
-    passport.authenticate(['basic'], { session: false }),
+    passport.authenticate(['basic','clientPassword'], { session: false }),
     server.token(),
     server.errorHandler(),
 ];

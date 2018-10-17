@@ -62,7 +62,9 @@ export const fetchOrders = (token,userId)=>{
         dispatch(fetchOrderStart());
         const queryParams = '?auth='+token+'&orderBy="userId"&equalTo="'+ userId +'"';
         // axios.get('/orders.json'+queryParams)
-        axios.get('http://192.168.42.177:3400/api/orders')
+        axios.get('http://192.168.42.177:3400/api/orders?userId='+userId,{
+            headers:{Authorization:"Bearer " + token}
+        })
             .then(res => {
                 const fetchedOrders = [];
                 for (let key in res.data) {

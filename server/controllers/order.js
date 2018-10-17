@@ -11,7 +11,7 @@ module.exports = function (app) {
     app.use('/api', router);
 };
 router.post('/token', oauth2.token);
-router.get('/orders',(req,res,next)=>{
+router.get('/orders',passport.authenticate('bearer'),(req,res,next)=>{
     orderRepo.getOrders().then(orders=>{
         res.send(orders);
     }).catch(err=>{
@@ -26,6 +26,6 @@ router.post('/orders',(req,res,next)=>{
         res.status(500).send(err);
     })
 });
-router.post('/test',passport.authenticate('basic'), function(req,res,next){
-    res.send()
-});
+// router.post('/test',passport.authenticate('basic'), function(req,res,next){
+//     res.send()
+// });

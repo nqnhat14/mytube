@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios';
 import qs from 'qs';
+import {config} from '../../shared/config'
 export const authStart = () => {
     return {
         type: actionTypes.AUTH_START
@@ -66,7 +67,7 @@ export const auth = (email, password, isSignup) => {
     return dispatch => {
         dispatch(authStart());
         const authData = {
-            userName: email,
+            username: email,
             password: password,
             returnSecureToken: true
         };
@@ -77,16 +78,22 @@ export const auth = (email, password, isSignup) => {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             })
                 .then(response => {
+                    dispatch(authSignUpSuccess());
                     console.log(response);
                 })
                 .catch(err => {
+                    dispatch(authSignUpFail());
                     console.log(err);
                 })
         }
         else {
-            url = '/signin';
+            url = '/token';
+            authData.client_id = config.client.clientId;
+            authData.client_secret = config.client.clientSecret;
+            authData.grant_type = 'password';
             axios.post(url, authData)
                 .then(response => {
+                    console.log(response);
                     const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
                     localStorage.setItem('token', response.data.idToken);
                     localStorage.setItem('expirationDate', expirationDate);
@@ -127,3 +134,13 @@ export const authCheckState = () => {
         }
     }
 };
+export const authSignUpSuccess = ()=>{
+    return{
+        type:actionTypes.AUTH_SIGNUP_SUCCESS
+    }
+}
+export const authSignUpFail = ()=>{
+    return{
+        type:actionTypes.AUTH_SIGNUP_FAIL
+    }
+}

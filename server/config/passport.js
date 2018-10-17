@@ -61,11 +61,8 @@ module.exports = () => {
      * the specification, in practice it is quite common.
      */
     function verifyClient(clientId, clientSecret, done) {
-        console.log(clientId);
-        console.log(clientSecret);
         Client.findByIdAsync(clientId)
             .then(client =>{
-                console.log('client',client);
                 if (!client)
                     return done(null, false);
                 if (client.clientSecret !== clientSecret)
@@ -79,7 +76,7 @@ module.exports = () => {
 
     passport.use(new BasicStrategy(verifyClient));
 
-    passport.use(new ClientPasswordStrategy(verifyClient));
+    passport.use('clientPassword',new ClientPasswordStrategy(verifyClient));
     /**
      * BearerStrategy
      *
@@ -90,8 +87,8 @@ module.exports = () => {
      */
     passport.use(new BearerStrategy(
         (accessToken, done) => {
-            const accessTokenHash = crypto.createHash('sha1').update(accessToken).digest('hex');
-            AccessToken.findOneAsync({token:accessTokenHash})
+            //const accessTokenHash = crypto.createHash('sha1').update(accessToken).digest('hex');
+            AccessToken.findOneAsync({token:accessToken})
                 .then(token =>{
                     if (!token)
                         return done(null, false);
