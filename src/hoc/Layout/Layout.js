@@ -22,9 +22,7 @@ class Layout extends Component {
                 <div id="main-content">
                     <Topbar></Topbar>
                     <Header></Header>
-                    <main className={classes.Content}>
-                        {this.props.children}
-                    </main>
+                    {this.props.children}
                     <Footer></Footer>
                 </div>
 

@@ -5,7 +5,7 @@ class VideoList extends Component {
 
     render() {
         let videos = [];
-        for(let i =0;i<10;i++){
+        for(let i =0;i<5;i++){
             videos.push(<Video key={i}></Video>)
         }
         return (

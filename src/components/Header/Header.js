@@ -8,6 +8,7 @@ class Header extends Component {
                     <div className="row">
                         <div className="col-md-10 col-sm-12">
                             <div id="cssmenu">
+                                <div id="menu-button">Menu</div>
                                 <ul>
                                     <li className="active"><a href="#"><i className="fi ion-ios-home"></i>Home</a>
                                         <ul>
