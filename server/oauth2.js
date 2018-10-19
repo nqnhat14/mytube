@@ -1,5 +1,3 @@
-'use strict';
-
 const oauth2orize = require('oauth2orize');
 const passport = require('passport');
 const login = require('connect-ensure-login');
@@ -29,9 +27,9 @@ const server = oauth2orize.createServer();
 server.serializeClient((client, done) => done(null, client._id));
 
 server.deserializeClient((id, done) => {
-    Client.findByIdAsync(id).then(client =>{
+    Client.findByIdAsync(id).then(client => {
         return done(null, client);
-    }).catch(err=>{
+    }).catch(err => {
         done(err);
     })
 });
@@ -50,13 +48,13 @@ server.deserializeClient((id, done) => {
 // the application. The application issues a code, which is bound to these
 // values, and will be exchanged for an access token.
 
-server.grant(oauth2orize.grant.code((client, redirectUri, user, ares, done) => {
-    const code = utils.getUid(16);
-    db.authorizationCodes.save(code, client.id, redirectUri, user.id, (error) => {
-        if (error) return done(error);
-        return done(null, code);
-    });
-}));
+// server.grant(oauth2orize.grant.code((client, redirectUri, user, ares, done) => {
+//     const code = utils.getUid(16);
+//     db.authorizationCodes.save(code, client.id, redirectUri, user.id, (error) => {
+//         if (error) return done(error);
+//         return done(null, code);
+//     });
+// }));
 
 // Grant implicit authorization. The callback takes the `client` requesting
 // authorization, the authenticated `user` granting access, and
@@ -67,14 +65,14 @@ server.grant(oauth2orize.grant.code((client, redirectUri, user, ares, done) => {
 server.grant(oauth2orize.grant.token((client, user, ares, done) => {
     const token = utils.getUid(256);
     const accessToken = new AccessToken({
-        token:token,
-        userId:user._id,
-        clientId:client.clientId,
+        token: token,
+        userId: user._id,
+        clientId: client.clientId,
     });
-    accessToken.saveAsync().then(aToken =>{
-        console.log('aToken',aToken);
-        return done(null,aToken);
-    }).catch(err=>{
+    accessToken.saveAsync().then(aToken => {
+        console.log('aToken', aToken);
+        return done(null, aToken);
+    }).catch(err => {
         return done(err);
     });
 }));
@@ -108,15 +106,15 @@ server.grant(oauth2orize.grant.token((client, user, ares, done) => {
 server.exchange(oauth2orize.exchange.password((client, username, password, scope, done) => {
     // Validate the client
     Client.findByIdAsync(client._id)
-        .then(localClient =>{
+        .then(localClient => {
             console.log(client);
             if (!localClient)
                 return done(null, false);
             if (localClient.clientSecret !== client.clientSecret)
                 return done(null, false);
             // Validate the user
-            User.findOneAsync({userName:username})
-                .then(user=>{
+            User.findOneAsync({ userName: username })
+                .then(user => {
                     if (!user)
                         return done(null, false);
                     if (password !== user.password)
@@ -125,27 +123,27 @@ server.exchange(oauth2orize.exchange.password((client, username, password, scope
                     const token = utils.getUid(256);
 
                     const accessToken = new AccessToken({
-                        token:token,
-                        userId:user._id,
-                        clientId:client.clientId,
+                        token: token,
+                        userId: user._id,
+                        clientId: client.clientId,
                     });
 
                     accessToken.save()
                         .then(() => {
-                            const returnValue={
-                                idToken:token,
-                                expiresIn:3600,
-                                localId:user._id
+                            const returnValue = {
+                                idToken: token,
+                                expiresIn: 3600,
+                                localId: user._id
                             }
-                            return done(null, token,null,returnValue);
+                            return done(null, token, null, returnValue);
                         })
-                        .catch(err=>{return done(err)});
+                        .catch(err => { return done(err) });
                 })
-                .catch(err=>{
+                .catch(err => {
                     return done(err);
                 });
         })
-        .catch(err=>{
+        .catch(err => {
             return done(err);
         });
 }));
@@ -166,18 +164,18 @@ server.exchange(oauth2orize.exchange.clientCredentials((client, scope, done) => 
             const token = utils.getUid(256);
             // Pass in a null for user id since there is no user with this grant type
             const accessToken = new AccessToken({
-                token:token,
-                userId:null,
-                clientId:client.clientId,
+                token: token,
+                userId: null,
+                clientId: client.clientId,
             });
 
             accessToken.save()
                 .then(() => {
                     return done(null, token);
                 })
-                .catch(err=>{return done(err)});
+                .catch(err => { return done(err) });
         })
-        .catch (err=>{
+        .catch(err => {
             return done(err);
         })
 }));
@@ -209,7 +207,7 @@ module.exports.authorization = [
                 //          been warned.
                 return done(null, client, redirectUri);
             })
-            .catch(err=>{
+            .catch(err => {
                 return done(err);
             });
     }, (client, user, done) => {
@@ -218,16 +216,16 @@ module.exports.authorization = [
         // Auto-approve
         if (client.isTrusted) return done(null, true);
 
-        AccessToken.findOneAsync({userId: user.id, clientId : client.clientId})
+        AccessToken.findOneAsync({ userId: user.id, clientId: client.clientId })
             .then(token => {
                 // Auto-approve
                 if (token)
-                  return done(null, true);
+                    return done(null, true);
 
                 // Otherwise ask user
                 return done(null, false);
             })
-            .catch(err =>{
+            .catch(err => {
                 return done(err);
             })
     }),
@@ -263,7 +261,7 @@ exports.decision = [
 // ];
 
 exports.token = [
-    passport.authenticate(['basic','clientPassword'], { session: false }),
+    passport.authenticate(['basic', 'clientPassword'], { session: false }),
     server.token(),
     server.errorHandler(),
 ];
