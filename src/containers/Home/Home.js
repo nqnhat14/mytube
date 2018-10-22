@@ -3,12 +3,19 @@ import VideoList from '../../components/VideoList/VideoList';
 import SideBar from '../../components/SideBar/SideBar';
 import Auxiliary from '../../hoc/Auxiliary/Auxiliary';
 import FeaturedVideoList from '../../components/FeaturedVideoList/FeaturedVideoList';
+import * as actions from '../../store/actions/index';
+import {albumType} from '../../shared/staticString';
+import { connect } from 'react-redux';
 class Home extends Component {
+    componentDidMount(){
+        const type= albumType.lasted;
+        this.props.getAlbum(type);
+    }
     render() {
         return (
             <Auxiliary>
                 <div id="main-section">
-                    <div class="container">
+                    <div className="container">
                         <FeaturedVideoList/>
                     </div>
                 </div>
@@ -30,4 +37,14 @@ class Home extends Component {
         );
     }
 }
-export default Home;
+const mapStateToProps = (state)=>{
+    return {
+
+    }
+}
+const mapDispatchToProps = (dispatch)=>{
+    return{
+        getAlbum: (type)=>dispatch(actions.fetchAlbum(type))
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Home);

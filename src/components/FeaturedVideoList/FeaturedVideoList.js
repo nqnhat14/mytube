@@ -4,20 +4,20 @@ import FeaturedVideo from './FeaturedVideo/FeaturedVideo';
 class FeaturedVideoList extends Component {
     render() {
         return (
-            <div class="row overflow-hidden">
-                <div class="col-md-6 col-sm-12 md-grid">
+            <div className="row overflow-hidden">
+                <div className="col-md-6 col-sm-12 md-grid">
                     <FeaturedVideo />
                 </div>
-                <div class="col-md-3 col-sm-6 small-grid">
+                <div className="col-md-3 col-sm-6 small-grid">
                     <FeaturedVideo />
                 </div>
-                <div class="col-md-3 col-sm-6 small-grid">
+                <div className="col-md-3 col-sm-6 small-grid">
                     <FeaturedVideo />
                 </div>
-                <div class="col-md-3 col-sm-6 small-grid">
+                <div className="col-md-3 col-sm-6 small-grid">
                     <FeaturedVideo />
                 </div>
-                <div class="col-md-3 col-sm-6 small-grid">
+                <div className="col-md-3 col-sm-6 small-grid">
                     <FeaturedVideo />
                 </div>
             </div>

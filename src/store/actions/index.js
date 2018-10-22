@@ -1,0 +1,1 @@
+export {fetchAlbum} from './album'
