@@ -23,12 +23,12 @@ class Topbar extends Component {
                         <div className="clearfix visible-xs"></div>
                         <div className="col-md-6 col-sm-4 border-right sm-border-top">
                             <div className="search-box">
-                                <form method="post">
-                                    <input type="text" name="search" id="search" className="form-control" placeholder="Search Albums" required />
-                                    <button type="submit" className="search-icon">
+                                {/* <form method="post"> */}
+                                    <input type="text" name="search" id="search" className="form-control" placeholder="Search Albums" required onChange={this.props.changed}/>
+                                    <button type="submit" className="search-icon" onClick={this.props.searched}>
                                         <i className="fa fa-search"></i>
                                     </button>
-                                </form>
+                                {/* </form> */}
                             </div>
                         </div>
                         <div className="col-md-2 col-sm-4 sm-border-top">

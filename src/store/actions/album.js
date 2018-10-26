@@ -5,10 +5,11 @@ export const fetchAlbumStart = ()=>{
         type:actionTypes.FETCH_ALBUM_START
     }
 };
-export const fetchAlbumSuccess = (album)=>{
+export const fetchAlbumSuccess = (album,type)=>{
     return{
         type:actionTypes.FETCH_ALBUM_SUCCESS,
-        album:album
+        album:album,
+        albumType:type
     }
 };
 export const fetchAlbumFail = ()=>{
@@ -21,12 +22,22 @@ export const fetchAlbum = (type) => {
         dispatch(fetchAlbumStart());
         axios.get('/getAlbum?type='+type)
         .then(res => {
-            console.log(res.data);
-            dispatch(fetchAlbumSuccess(res.data));
+            let album = res.data[type].reduce((ac,el)=>({...ac, [el._id]: el }), {})
+            dispatch(fetchAlbumSuccess(album,type));
         })
         .catch(err => {
             dispatch(fetchAlbumFail(err));
         })
 
     }
+}
+
+export const search = (searchText) =>{
+    return dispatch => dispatch(searchStart(searchText))
+}
+export const searchStart = (searchText) =>{
+    return dispatch => dispatch({
+        type:actionTypes.SEARCH_START,
+        searchText:searchText
+    })
 }

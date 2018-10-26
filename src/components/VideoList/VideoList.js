@@ -4,9 +4,11 @@ import Video from './Video/Video';
 class VideoList extends Component {
 
     render() {
-        let videos = [];
-        for(let i =0;i<5;i++){
-            videos.push(<Video key={i}></Video>)
+        let videos = null;
+        if (this.props.videos) {
+            videos = Object.keys(this.props.videos).map(vkey => {
+                return <Video key={vkey} video={this.props.videos[vkey]} />
+            });
         }
         return (
             <div className="container">

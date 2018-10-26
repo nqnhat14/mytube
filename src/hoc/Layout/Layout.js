@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
 import Auxiliary from '../Auxiliary/Auxiliary';
-import classes from './Layout.css';
 import Topbar from '../../components/Topbar/Topbar';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import * as actions from '../../store/actions/index';
+import {connect} from 'react-redux';
 class Layout extends Component {
     state = {
-        showSideDrawer: false
+        searchText:""
     }
-    sideDrawerClosedHandler = () => {
-        this.setState({ showSideDrawer: false });
+    searchInputChangedHandler = (event)=>{
+        this.setState({searchText:event.target.value});
     }
-    sideDrawerToggleHandler = () => {
-        this.setState((prevState) => {
-            return { showSideDrawer: !prevState.showSideDrawer }
-        });
-    };
+    searchHandler = ()=>{
+        this.props.onSearch(this.state.searchText);
+    }
     render() {
         return (
             <Auxiliary>
                 <div id="main-content">
-                    <Topbar></Topbar>
+                    <Topbar changed={(event) => this.searchInputChangedHandler(event)} searched={this.searchHandler}></Topbar>
                     <Header></Header>
                     {this.props.children}
                     <Footer></Footer>
@@ -30,5 +29,9 @@ class Layout extends Component {
         );
     };
 };
-
-export default Layout;
+const mapDispatchToProps = (dispatch)=>{
+    return{
+        onSearch:(searchText)=>dispatch(actions.search(searchText))
+    }
+}
+export default connect(null,mapDispatchToProps)(Layout);

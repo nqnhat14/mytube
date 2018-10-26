@@ -18,7 +18,6 @@ class SideBarVideo extends Component {
                 </div>
             </div>
         );
-        console.log("type",this.props.type)
         if (this.props.type === sideBarVideoType.full) {
             sidebarVideo = (
                 <div className="most-viewd-container">

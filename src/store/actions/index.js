@@ -1,1 +1,1 @@
-export {fetchAlbum} from './album'
+export {fetchAlbum,search} from './album';

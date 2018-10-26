@@ -4,7 +4,6 @@ import {sideBarVideoType} from '../../shared/staticString';
 import SideBarTag from './SideBarTag/SideBarTag';
 class SideBar extends Component {
     render() {
-        console.log(sideBarVideoType.small);
         return (
             <div className="sidebar">
                 <SideBarVideos title="Most Liked" type={sideBarVideoType.small}/>

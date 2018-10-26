@@ -1,3 +1,7 @@
 export const FETCH_ALBUM_START = 'FETCH_ALBUM_START';
 export const FETCH_ALBUM_SUCCESS = 'FETCH_ALBUM_SUCCESS';
 export const FETCH_ALBUM_FAIL = 'FETCH_ALBUM_FAIL';
+
+
+export const SEARCH = 'SEARCH';
+export const SEARCH_START = 'SEARCH_START';

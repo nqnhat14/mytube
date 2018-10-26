@@ -9,7 +9,10 @@ const videoSchema = new Schema({
     View:Number,
     UploadedDate:Date,
     Source:String,
-    Image:String
+    Image:String,
+    Featured:Boolean,
+    BigImage:String,
+    SmallImage:String
 });
 
 videoSchema.virtual('date')

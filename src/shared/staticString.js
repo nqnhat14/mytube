@@ -5,5 +5,6 @@ export const sideBarVideoType={
 export const albumType ={
     lasted:"lasted",
     mostViewed:"mostViewed",
-    sport:"sport"
+    sport:"sport",
+    featured:"featured"
 }
