@@ -24,29 +24,50 @@ const fetchAlbumSuccess = (state, action) => {
         }
     }
 }
+// const search = (state, action) => {
+//     const searchText = action.searchText;
+//     let updatedFilteredAlbum = {};
+//     for (let type of Object.keys(state.filteredAlbums)) {
+//         //if (type === albumType.sport) {
+//         let updatedFilteredAlbumType = {};
+//         for (let item of Object.keys(state.filteredAlbums[type])) {
+//             if (state.filteredAlbums[type][item]) {
+//                 if (state.filteredAlbums[type][item].Title.includes(searchText)) {
+//                     updatedFilteredAlbumType = {
+//                         ...updatedFilteredAlbumType,
+//                         [item]:state.filteredAlbums[type][item]
+//                     }
+//                 }
+//             }
+//         }
+//         updatedFilteredAlbum ={
+//             ...updatedFilteredAlbum,
+//             [type]:updatedFilteredAlbumType
+//         }
+//         //}
+//     }
+//     console.log(updatedFilteredAlbum);
+//     return {
+//         ...state,
+//         filteredAlbums: updatedFilteredAlbum
+//     }
+// }
 const search = (state, action) => {
-    const searchText = action.searchText;
-    let updatedFilteredAlbum = {};
-    for (let type of Object.keys(state.filteredAlbums)) {
-        //if (type === albumType.sport) {
-        let updatedFilteredAlbumType = {};
-        for (let item of Object.keys(state.filteredAlbums[type])) {
-            if (state.filteredAlbums[type][item]) {
-                if (state.filteredAlbums[type][item].Title.includes(searchText)) {
-                    updatedFilteredAlbumType = {
-                        ...updatedFilteredAlbumType,
-                        [item]:state.filteredAlbums[type][item]
-                    }
+    const updatedFilteredAlbum = Object.keys(state.filteredAlbums).reduce((object1, type) => {
+        const updatedFilteredAlbumType = Object.keys(state.filteredAlbums[type]).reduce((object2, item) => {
+            if (state.filteredAlbums[type][item].Title.includes(searchText)) {
+                return {
+                    ...object2,
+                    [item]: state.filteredAlbums[type][item]
                 }
-            }
+
+            };
+        }, {})
+        return {
+            ...object1,
+            [type]: updatedFilteredAlbumType
         }
-        updatedFilteredAlbum ={
-            ...updatedFilteredAlbum,
-            [type]:updatedFilteredAlbumType
-        }
-        //}
-    }
-    console.log(updatedFilteredAlbum);
+    }, {})
     return {
         ...state,
         filteredAlbums: updatedFilteredAlbum
