@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import videoImg from '../../../assets/images/latest-vid-img-1.jpg'
 import playBtnImg from '../../../assets/images/play-button.svg'
-import TimeAgo from 'react-timeago' 
+import TimeAgo from 'react-timeago'
+import {Link} from 'react-router-dom'
 class Video extends Component {
     render() {
         return (
@@ -9,14 +10,14 @@ class Video extends Component {
                 <div className="latest-vid-img-container">
                     <div className="vid-img">
                         <img className="img-responsive" src={this.props.video.Image} alt="video image" />
-                        <a href="./video-detail.html" className="play-icon play-small-icon">
+                        <Link to={"/video-details/"+this.props.video._id} className="play-icon play-small-icon">
                             <img className="img-responsive play-svg svg" src={playBtnImg} alt="play" />
-                        </a>
+                        </Link>
                         <div className="overlay-div"></div>
                     </div>
                     <div className="vid-text">
                         <p><span>By</span> <a href="#">{this.props.video.UploadedBy}</a></p>
-                        <h1><a href="./video-detail.html">{this.props.video.Title}</a></h1>
+                        <h1><Link to={"/video-details/"+this.props.video._id}>{this.props.video.Title}</Link></h1>
                         <p className="vid-info-text">
                             <span><TimeAgo date={this.props.video.UploadedDate} /></span>
                             <span>&#47;</span>

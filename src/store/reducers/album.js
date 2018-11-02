@@ -53,20 +53,27 @@ const fetchAlbumSuccess = (state, action) => {
 //     }
 // }
 const search = (state, action) => {
-    const updatedFilteredAlbum = Object.keys(state.filteredAlbums).reduce((object1, type) => {
-        const updatedFilteredAlbumType = Object.keys(state.filteredAlbums[type]).reduce((object2, item) => {
-            if (state.filteredAlbums[type][item].Title.includes(searchText)) {
-                return {
-                    ...object2,
-                    [item]: state.filteredAlbums[type][item]
-                }
+    const searchText = action.searchText;
+    const updatedFilteredAlbum = Object.keys(state.albums).reduce((object1, type) => {
+        if (state.albums[type]) {
+            const updatedFilteredAlbumType = Object.keys(state.albums[type]).reduce((object2, item) => {
+                if (state.albums[type][item].Title.toLowerCase().includes(searchText.toLowerCase())) {
+                    console.log(object2);
+                    return {
+                        ...object2,
+                        [item]:state.albums[type][item]
+                    }
 
-            };
-        }, {})
-        return {
-            ...object1,
-            [type]: updatedFilteredAlbumType
+                };
+                return {...object2};
+            }, {})
+            console.log(updatedFilteredAlbumType);
+            return {
+                ...object1,
+                [type]: updatedFilteredAlbumType
+            }
         }
+        return {...object1};
     }, {})
     return {
         ...state,

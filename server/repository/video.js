@@ -21,19 +21,19 @@ module.exports = {
             let sortOption = {};
             if (type === "lasted") {
                 const today = new Date();
-                const lastMonth = new Date(today.getFullYear(),today.getMonth()-1,today.getDate());
+                const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
                 console.log(lastMonth);
-                queryOption = {UploadedDate:{$gte:lastMonth}}
+                queryOption = { UploadedDate: { $gte: lastMonth } }
             } else if (type === "mostViewed") {
                 console.log('mostViewed');
-                queryOption = {View:{$gte:1000}}
+                queryOption = { View: { $gte: 1000 } }
             }
             else if (type === "sport") {
-                
+
             }
             else if (type === "featured") {
-                queryOption = {Featured:true};
-                sortOption = {Large:-1};
+                queryOption = { Featured: true };
+                sortOption = { Large: -1 };
             }
             Video.find(queryOption).sort(sortOption).execAsync().then(videos => {
                 resolve(videos);
@@ -42,5 +42,16 @@ module.exports = {
                 reject(err);
             })
         })
-    }
+    },
+    getVideo: (videoId) => {
+        return new Promise((resolve, reject) => {
+            Video.findByIdAsync(videoId)
+                .then(video => {
+                    resolve(video)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+        })
+    },
 };

@@ -18,4 +18,14 @@ router.post('/video',(req,res)=>{
         console.log(err);
         res.status(500).send(err);
     })
+});
+router.get('/video/:id',(req,res)=>{
+    const videoId = req.params.id;
+    videoRepo.getVideo(videoId).then(video =>{
+        res.send(video);
+    })
+    .catch(err=>{
+        console.log(err);
+        res.status(500).send(err);
+    })
 })

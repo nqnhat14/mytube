@@ -10,7 +10,8 @@ class Layout extends Component {
         searchText:""
     }
     searchInputChangedHandler = (event)=>{
-        this.setState({searchText:event.target.value});
+        //this.setState({searchText:event.target.value});
+        this.props.onSearch(event.target.value);
     }
     searchHandler = ()=>{
         this.props.onSearch(this.state.searchText);

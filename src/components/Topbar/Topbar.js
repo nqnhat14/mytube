@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Logo from '../Logo/Logo';
 import userLogo from '../../assets/images/user.svg';
+import {Link} from 'react-router-dom';
 class Topbar extends Component {
     render() {
         return (
@@ -9,9 +10,9 @@ class Topbar extends Component {
                     <div className="row">
                         <div className="col-md-2 col-sm-5 col-xs-6 border-right">
                             <div className="logo">
-                                <a href="index.html">
+                                <Link to="/">
                                     <Logo></Logo>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         <div className="col-sm-7 col-xs-6 hidden-md hidden-lg text-right">

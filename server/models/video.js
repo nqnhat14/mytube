@@ -12,7 +12,9 @@ const videoSchema = new Schema({
     Image:String,
     Featured:Boolean,
     BigImage:String,
-    SmallImage:String
+    SmallImage:String,
+    Description:String,
+    VideoLink:String
 });
 
 videoSchema.virtual('date')

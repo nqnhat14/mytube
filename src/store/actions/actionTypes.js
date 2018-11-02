@@ -5,3 +5,7 @@ export const FETCH_ALBUM_FAIL = 'FETCH_ALBUM_FAIL';
 
 export const SEARCH = 'SEARCH';
 export const SEARCH_START = 'SEARCH_START';
+
+export const FETCH_VIDEO_START = 'FETCH_VIDEO_START';
+export const FETCH_VIDEO_SUCCESS = 'FETCH_VIDEO_SUCCESS';
+export const FETCH_VIDEO_FAIL = 'FETCH_VIDEO_FAIL';

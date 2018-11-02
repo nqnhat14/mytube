@@ -8,9 +8,11 @@ import {createStore,applyMiddleware,compose, combineReducers} from 'redux';
 import { BrowserRouter } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import albumReducer from './store/reducers/album';
+import videoReducer from './store/reducers/video';
 const composeEnhancers = process.env.NODE_ENV === "development"? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ :null || compose;
 const rootReducer = combineReducers({
-    album:albumReducer
+    album:albumReducer,
+    video:videoReducer
 });
 
 const store = createStore(rootReducer,composeEnhancers(
